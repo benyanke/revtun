@@ -3,4 +3,4 @@ language: bash
 before_script:
     - sudo apt-get update && sudo apt-get install -y shellcheck
 script:
-    - shellcheck revtun.sh
+    - shellcheck revtun.sh && echo "Script linting success!"
