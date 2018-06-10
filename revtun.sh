@@ -7,6 +7,8 @@
 # An alternative to autossh. By Ben Yanke <ben@benyanke.com>
 # Run this regularly in cron to keep the tunnel alive.
 #
+# https://github.com/benyanke/revtun
+#
 #################
 
 
