@@ -142,9 +142,7 @@ function makeSshConnection() {
   ssh -f -N -T \
     -i "$keyFile" \
     -R"$remoteBindPort:localhost:$localPort" \
-    $sshConnectionString;
-
-  sshpid="$!"
+    $sshConnectionString; sshpid="$!"
 
   # Store PID in PIDfile
   echo "$sshpid" > "$pidFile"

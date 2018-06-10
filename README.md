@@ -7,3 +7,5 @@ Edit the script to configure it, and run in cron to ensure tunnel stays alive. T
 and when checking to see if the tunnel is up, it first checks the pid file, and then attempts to ping hosts through the tunnel.
 
 Travis builds also run, linting the script with `shellcheck`. 
+
+__NOTE: this is not yet complete__
