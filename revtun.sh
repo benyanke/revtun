@@ -153,14 +153,16 @@ function makeSshConnection() {
 # Main
 #################
 
-
-# First - check tunnel status
+# Check tunnel status - First checks the stored PID of the known tunnel, then tries to ping down the tunnel
 checkTunnelStatus
 tunStat="$?"
 
-# If tunnel is down, kill previous tunnel if required, then make new one
+# If tunnel is down, kill previous tunnel (which may have stalled), then make new one.
 if [[ "$tunStat" -ne "0" ]] ; then
   killOldSshConnection
   makeSshConnection
 fi
+
+# If we've reached here without an error, we're good to go!
+exit 0;
 
