@@ -1,0 +1,6 @@
+language: bash
+
+before_script:
+    - apt-get update && apt-get install -y shellcheck
+script:
+    - shellcheck revtun.sh
