@@ -68,6 +68,8 @@ function checkTunnelStatus() {
     if [[ "$(ps -p "$pid" &> /dev/null ; echo $?)" = "0" ]] ; then
       # PID exists
       echo "Tunnel PID exists - continuing"
+      # ping logic is broken - temporarily returning here, using only the PID as the measure of a tunnel up
+      return $good
     else
       # PID does not exist
       return $err;
