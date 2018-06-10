@@ -62,10 +62,10 @@ function checkTunnelStatus() {
   # First - check PID file. If PID file is empty, we'll consider SSH dead.
   if [ -s "$pidFile" ] ; then
     # Get the PID from the file
-    pid="`cat $pidFile`"
+    pid="$(cat $pidFile)"
 
     # If not dead after a nice kill, keep trying to hard-kill until it dies
-    if [[ "`ps -p $pid &> /dev/null ; echo $?`" = "0" ]] ; then
+    if [[ "$(ps -p "$pid" &> /dev/null ; echo $?)" = "0" ]] ; then
       # PID exists
       echo "Tunnel PID exists - continuing"
     else
@@ -112,17 +112,17 @@ function killOldSshConnection() {
   # If there is a PID in the PIDfile, kill the PID specified
   if [ -s "$pidFile" ] ; then
     # Get the PID from the file
-    pid="`cat $pidFile`"
+    pid="$(cat $pidFile)"
 
     # Try a nice kill first
-    kill $pid &> /dev/null
+    kill "$pid" &> /dev/null
     echo "Killing SSH at PID $pid"
 
     # If not dead after a nice kill, keep trying to hard-kill until it dies
-    while [[ "`ps -p $pid &> /dev/null ; echo $?`" = "0" ]] ; do
+    while [[ "$(ps -p "$pid" &> /dev/null ; echo $?)" = "0" ]] ; do
       sleep "$killWaitTime";
       echo "SSH did not die. Running kill -9 on PID $pid and waiting $killWaitTime".
-      kill -9 $pid &> /dev/null
+      kill -9 "$pid" &> /dev/null
     done
 
     echo "SSH PID $pid was killed successfully."
@@ -136,13 +136,13 @@ function killOldSshConnection() {
 function makeSshConnection() {
 
   # Make directory for PID file
-  pidFileDir="`dirname $pidFile`"
+  pidFileDir="$(dirname $pidFile)"
   mkdir -p "$pidFileDir"
 
   ssh -f -N -T \
     -i "$keyFile" \
     -R"$remoteBindPort:localhost:$localPort" \
-    "$sshConnectionString";
+    $sshConnectionString;
 
   sshpid="$!"
 
